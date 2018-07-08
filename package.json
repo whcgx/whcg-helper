@@ -13,6 +13,8 @@
   "files": [
     "dist"
   ],
-  "devDependencies": {},
+  "devDependencies": {
+    "@whcg/whcg-my": "*"
+  },
   "dependencies": {}
 }
