@@ -2,6 +2,8 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+var whcgMy = require('@whcg/whcg-my');
+
 var h = {};
 
 
@@ -10,25 +12,25 @@ var h = {};
 
     this.filters = {
         
-        makeFunction: my.curry(function(func) {
+        makeFunction: whcgMy.my.curry(function(func) {
             return function(a) {
                 return a.filter(func);
             };
         }),
 
-        odd: my.curry(function(a) {
+        odd: whcgMy.my.curry(function(a) {
             return h.filters.makeFunction(h.boolean.isOddInteger)(a);
         }),
 
-        even: my.curry(function(a) {
+        even: whcgMy.my.curry(function(a) {
             return h.filters.makeFunction(h.boolean.isEvenInteger)(a);
         }),
 
-        unique: my.curry(function(a) {
+        unique: whcgMy.my.curry(function(a) {
             return h.filters.makeFunction(h.boolean.isUnique)(a);
         }),
 
-        oddAndUnique: my.curry(function(a) {
+        oddAndUnique: whcgMy.my.curry(function(a) {
             return h.compose(h.filters.odd, h.filters.unique)(a);
         })
     };
@@ -36,7 +38,7 @@ var h = {};
     
 
     //Unit tests
-    this.unitTester = my.curry(function (subject, args, predicate, descriptor) {
+    this.unitTester = whcgMy.my.curry(function (subject, args, predicate, descriptor) {
         let exception = undefined;
         let value = undefined;
 
@@ -60,7 +62,7 @@ var h = {};
 
     // Map, Reduce, Filter...
     //DONE!
-    this.filter = my.curry(function(callback, array) {
+    this.filter = whcgMy.my.curry(function(callback, array) {
         let passed = [];
         for(let element of array) {
             if (callback(element)) {
@@ -71,7 +73,7 @@ var h = {};
     });
 
     //DONE
-    this.map = my.curry(function (callback, array) {
+    this.map = whcgMy.my.curry(function (callback, array) {
         var newArray = [];
         for (var i = 0; i < array.length; i = i + 1) {
             newArray[i] = callback(array[i], i);
@@ -80,7 +82,7 @@ var h = {};
     });
 
     //DONE
-    this.reduce = my.curry(function (callback, initialValue, array) {
+    this.reduce = whcgMy.my.curry(function (callback, initialValue, array) {
         var working = initialValue;
         for (var i = 0; i < array.length; i = i + 1) {
             working = callback(working, array[i]);
@@ -88,7 +90,7 @@ var h = {};
         return working;
     });
 
-    this.compose = my.curry(function() {
+    this.compose = whcgMy.my.curry(function() {
         var args = arguments;
         var start = args.length - 1;
         return function() {
@@ -109,7 +111,7 @@ var h = {};
 
         //TODO: REPLACE FUNCTION WITH OTHERS BELOW
         //Null, undefined, empty array, empty object, empty string = empty
-        isEmpty: my.curry(function (obj) {
+        isEmpty: whcgMy.my.curry(function (obj) {
             for (var prop in obj) {
                 if (obj.hasOwnProperty(prop))
                     return false;
@@ -122,7 +124,7 @@ var h = {};
         
         //DONE!
         //Expects array
-        isEmptyArray: my.curry(function (obj) {
+        isEmptyArray: whcgMy.my.curry(function (obj) {
             if(!h.boolean.isArray(obj)) {
                 throw 'Parameter is not an array';   
             }
@@ -136,7 +138,7 @@ var h = {};
 
         //DONE!
         //Expects object
-        isEmptyObject: my.curry(function (obj) {
+        isEmptyObject: whcgMy.my.curry(function (obj) {
             if(!h.boolean.isObject(obj)) {
                 throw 'Parameter is not an object';   
             }
@@ -150,7 +152,7 @@ var h = {};
         
         //DONE!
         //Expects string
-        isEmptyString: my.curry(function (obj) {
+        isEmptyString: whcgMy.my.curry(function (obj) {
             if(!h.boolean.isString(obj)) {
                 throw 'Parameter is not a string';   
             }
@@ -163,26 +165,26 @@ var h = {};
 
         //DONE!
         //Expects anything
-        isDefined: my.curry(function (item) {
+        isDefined: whcgMy.my.curry(function (item) {
             return (typeof item !== 'undefined');
         }),
 
         //DONE!
         //Expects anything
-        isNull: my.curry(function (item) {
+        isNull: whcgMy.my.curry(function (item) {
             return (item === null);
         }),
 
         //DONE!
         //Expects anything
-        isNullOrUndefined: my.curry(function (item) {
+        isNullOrUndefined: whcgMy.my.curry(function (item) {
             return h.boolean.isNull(item) || !h.boolean.isDefined(item);
         }),
 
 
         //DONE!
         //Expects anything
-        isBoolean: my.curry(function (obj) {
+        isBoolean: whcgMy.my.curry(function (obj) {
             if (typeof obj === 'boolean' || obj instanceof Boolean) {
                 return true;
             } else {
@@ -192,7 +194,7 @@ var h = {};
 
         //DONE!
         //Expects anything
-        isArray: my.curry(function (obj) {
+        isArray: whcgMy.my.curry(function (obj) {
             if (Array.isArray(obj)) {
                 return true;
             } else {
@@ -202,7 +204,7 @@ var h = {};
 
         //DONE!
         //Expects anything
-        isString: my.curry(function (obj) {
+        isString: whcgMy.my.curry(function (obj) {
             if (typeof obj === 'string' || obj instanceof String) {
                 return true;
             } else {
@@ -212,7 +214,7 @@ var h = {};
 
         //DONE!
         //Expects anything
-        isObject: my.curry(function (obj) {
+        isObject: whcgMy.my.curry(function (obj) {
             if (h.boolean.isString(obj)) {
                 return false;
             }
@@ -235,7 +237,7 @@ var h = {};
 
         //DONE!
         //Expects anything
-        isNumberType: my.curry(function (obj) {
+        isNumberType: whcgMy.my.curry(function (obj) {
            
             if (h.boolean.isString(obj)) {
                 return false;
@@ -259,7 +261,7 @@ var h = {};
 
         //DONE!
         //Expects anything
-        isNumber: my.curry(function (obj) {
+        isNumber: whcgMy.my.curry(function (obj) {
             if (h.boolean.isBoolean(obj)) {
                 return false;
             }
@@ -289,7 +291,7 @@ var h = {};
         //DONE!
         //Expects "number"
         // TODO: change to not accept e.g. 3.0 as integer.
-        isInteger: my.curry(function (obj) {
+        isInteger: whcgMy.my.curry(function (obj) {
             if(!h.boolean.isNumber(obj)) {
                 throw 'Parameter is not a "Number"';
             } 
@@ -302,7 +304,7 @@ var h = {};
 
         //DONE!
         //Expects integer
-        isEvenInteger: my.curry(function (x) { 
+        isEvenInteger: whcgMy.my.curry(function (x) { 
             if(!h.boolean.isInteger(x)) {
                 throw 'Parameter is not an integer';   
             }
@@ -311,7 +313,7 @@ var h = {};
 
         //DONE!
         //Expects integer
-        isOddInteger: my.curry(function (x) {
+        isOddInteger: whcgMy.my.curry(function (x) {
             if(!h.boolean.isInteger(x)) {
                 throw 'Parameter is not an integer';   
             }
@@ -322,7 +324,7 @@ var h = {};
         //DONE!
         //Expects numbertype
         // TODO: change to not accept e.g. 3.0 as integer.
-        isIntegerAndNumberType: my.curry(function (obj) {
+        isIntegerAndNumberType: whcgMy.my.curry(function (obj) {
             if(!h.boolean.isNumberType(obj)) {
                 throw 'Parameter is not a numbertype';
             } 
@@ -332,7 +334,7 @@ var h = {};
 
         //DONE!
         //Expects integer of numbertype
-        isEvenIntegerAndNumberType: my.curry(function (x) {
+        isEvenIntegerAndNumberType: whcgMy.my.curry(function (x) {
             if(!h.boolean.isIntegerAndNumberType(x)) {
                 throw 'Parameter is not an integer';   
             }
@@ -341,7 +343,7 @@ var h = {};
 
         //DONE!
         //Expects integer of numbertype
-        isOddIntegerAndNumberType: my.curry(function (x) {
+        isOddIntegerAndNumberType: whcgMy.my.curry(function (x) {
             if(!h.boolean.isIntegerAndNumberType(x)) {
                 throw 'Parameter is not an integer';   
             }
@@ -353,7 +355,7 @@ var h = {};
         /**
          * Tries if the last character is equal to the test character
          */
-        stringEndsWithCharacter: my.curry(function (str, test) {
+        stringEndsWithCharacter: whcgMy.my.curry(function (str, test) {
             if (!h.boolean.isString(str) || !h.boolean.isString(test)) {
                 throw 'Parameter is not a string';
             }
@@ -374,7 +376,7 @@ var h = {};
         /**
          * Tries if the last character is equal to the test character
          */
-        stringEndsWithCharacters: my.curry(function (str, test) {
+        stringEndsWithCharacters: whcgMy.my.curry(function (str, test) {
             if (!h.boolean.isString(str) || !h.boolean.isString(test)) {
                 throw 'Parameter is not a string';
             }
@@ -396,7 +398,7 @@ var h = {};
 
         //DONE!
         //Expects strings
-        stringStartsWithCharacter: my.curry(function (str, test) {
+        stringStartsWithCharacter: whcgMy.my.curry(function (str, test) {
             if (!h.boolean.isString(str) || !h.boolean.isString(test)) {
                 throw 'Parameter is not a string';
             }
@@ -413,7 +415,7 @@ var h = {};
 
         //DONE!
         //Expects strings
-        stringStartsWithCharacters: my.curry(function (str, test) {
+        stringStartsWithCharacters: whcgMy.my.curry(function (str, test) {
             if (!h.boolean.isString(str) || !h.boolean.isString(test)) {
                 throw 'Parameter is not a string';
             }
@@ -434,7 +436,7 @@ var h = {};
 
 
         //TODO: Working, but I don't understand what it does...
-        isUnique: my.curry(function(value, index, self) {
+        isUnique: whcgMy.my.curry(function(value, index, self) {
             return self.indexOf(value) === index;
         })
     };
@@ -445,38 +447,38 @@ var h = {};
     this.str = {
 
         //DONE!
-        adder: my.curry(function (acc, nextString) {
+        adder: whcgMy.my.curry(function (acc, nextString) {
             return acc + nextString;
         }),
 
         //DONE!
-        adderUsingSplitter: my.curry(function (acc, nextString, splitter) {
+        adderUsingSplitter: whcgMy.my.curry(function (acc, nextString, splitter) {
             return acc + splitter + nextString;
         }),
 
         //DONE!
-        stringToArrayUsingSplitter: my.curry(function (splitter, string) {
+        stringToArrayUsingSplitter: whcgMy.my.curry(function (splitter, string) {
             return string.split(splitter);
         }),
 
 
         //DONE
-        toUpperCase: my.curry(function (text) {
+        toUpperCase: whcgMy.my.curry(function (text) {
             return text.toUpperCase();
         }),
 
         //DONE
-        firstLettertoUpperCase: my.curry(function (string) {
+        firstLettertoUpperCase: whcgMy.my.curry(function (string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
         }),
 
         //DONE
-        firstLettertoLowerCase: my.curry(function (string) {
+        firstLettertoLowerCase: whcgMy.my.curry(function (string) {
             return string.charAt(0).toLowerCase() + string.slice(1);
         }),
 
         //DONE
-        toLowerCase: my.curry(function (text) {
+        toLowerCase: whcgMy.my.curry(function (text) {
             return text.toLowerCase();
         }),
 
@@ -485,7 +487,7 @@ var h = {};
          * Returns the first word from a string
          */
         //Expects strings
-        getFirstWordFromString: my.curry(function (str) {
+        getFirstWordFromString: whcgMy.my.curry(function (str) {
             return str.split(' ').slice(0, 1).join(' ');
         }),
 
@@ -493,7 +495,7 @@ var h = {};
         /**
          * Returns first word from a string using splitter
          */
-        getFirstWordFromStringUsingSpliter: my.curry(function (str, splitter) {
+        getFirstWordFromStringUsingSpliter: whcgMy.my.curry(function (str, splitter) {
             return str.split(splitter).slice(0, 1).join(' ');
         }),
 
@@ -501,7 +503,7 @@ var h = {};
         /**
          * Returns the last word from a string
          */
-        getLastWordFromString: my.curry(function (str) {
+        getLastWordFromString: whcgMy.my.curry(function (str) {
             return str.split(' ').pop();
         }),
 
@@ -509,7 +511,7 @@ var h = {};
         /**
          * Returns the last word from a string using splitter
          */
-        getLastWordFromStringUsingSpliter: my.curry(function (str, splitter) {
+        getLastWordFromStringUsingSpliter: whcgMy.my.curry(function (str, splitter) {
             return str.split(splitter).pop();
         }),
 
@@ -517,7 +519,7 @@ var h = {};
         /**
          * Returns the first words from a string
          */
-        getFirstWordsFromString: my.curry(function (str, count) {
+        getFirstWordsFromString: whcgMy.my.curry(function (str, count) {
             return str.split(' ').slice(0, count).join(' ');
         }),
 
@@ -525,7 +527,7 @@ var h = {};
         /**
          * Returns the first words from a string using splitter
          */
-        getFirstWordsFromStringUsingSplitter: my.curry(function (str, count, splitter) {
+        getFirstWordsFromStringUsingSplitter: whcgMy.my.curry(function (str, count, splitter) {
             return str.split(splitter).slice(0, count).join(splitter);
         }),
 
@@ -533,7 +535,7 @@ var h = {};
         /**
          * Returns the last words from a string
          */
-        getLastWordsFromString: my.curry(function (str, count) {
+        getLastWordsFromString: whcgMy.my.curry(function (str, count) {
             return str.split(' ').slice(count, str.length).join(' ');
         }),
 
@@ -541,7 +543,7 @@ var h = {};
         /**
          * Returns the last words from a string
          */
-        getLastWordsFromStringUsingSplitter: my.curry(function (str, count, splitter) {
+        getLastWordsFromStringUsingSplitter: whcgMy.my.curry(function (str, count, splitter) {
             return str.split(splitter).slice(count, str.length).join(splitter);
         }),
 
@@ -549,7 +551,7 @@ var h = {};
         /**
          * Removes first word from a string and returns the rest
          */
-        removeFirstWordFromString: my.curry(function (str) {
+        removeFirstWordFromString: whcgMy.my.curry(function (str) {
             return str.split(' ').slice(1).join(' ');
         }),
 
@@ -557,7 +559,7 @@ var h = {};
         /**
          * Removes first word from a string and returns the rest
          */
-        removeFirstWordFromStringUsingSplitter: my.curry(function (str, splitter) {
+        removeFirstWordFromStringUsingSplitter: whcgMy.my.curry(function (str, splitter) {
             return str.split(splitter).slice(1).join(' ');
         }),
 
@@ -565,7 +567,7 @@ var h = {};
         /**
          * Removes the last word from at string and returns the mod string
          */
-        removeLastWordFromString: my.curry(function (str) {
+        removeLastWordFromString: whcgMy.my.curry(function (str) {
             //var shortStr = str.split(" ").pop();
             var strArr = str.split(' ');
             strArr.pop();
@@ -577,7 +579,7 @@ var h = {};
         /**
          * Removes the last word from at string and returns the mod string
          */
-        removeLastWordFromStringUsingSplitter: my.curry(function (str, splitter) {
+        removeLastWordFromStringUsingSplitter: whcgMy.my.curry(function (str, splitter) {
             //var shortStr = str.split(" ").pop();
             var strArr = str.split(splitter);
             strArr.pop();
@@ -585,7 +587,7 @@ var h = {};
             return newStr;
         }),
 
-        removeLastWordFromStringUsingSplitterAndKeepSplitters: my.curry(function (str, splitter) {
+        removeLastWordFromStringUsingSplitterAndKeepSplitters: whcgMy.my.curry(function (str, splitter) {
             //var shortStr = str.split(" ").pop();
             var strArr = str.split(splitter);
             strArr.pop();
@@ -596,7 +598,7 @@ var h = {};
         /**
          * Removes first words from a string and returns the rest
          */
-        removeFirstWordsFromString: my.curry(function (str, count) {
+        removeFirstWordsFromString: whcgMy.my.curry(function (str, count) {
             return str.split(' ').slice(count).join(' ');
         }),
 
@@ -604,7 +606,7 @@ var h = {};
         /**
          * Removes first words from a string and returns the rest
          */
-        removeFirstWordsFromStringUsingSplitter: my.curry(function (str, count, splitter) {
+        removeFirstWordsFromStringUsingSplitter: whcgMy.my.curry(function (str, count, splitter) {
             return str.split(splitter).slice(count).join(splitter);
         }),
 
@@ -612,7 +614,7 @@ var h = {};
         /**
          * Removes the last words from a string
          */
-        removeLastWordsFromString: my.curry(function (str, count) {
+        removeLastWordsFromString: whcgMy.my.curry(function (str, count) {
             return str.split(' ').slice(0, -count).join(' ');
         }),
 
@@ -620,7 +622,7 @@ var h = {};
         /**
          * Removes the last words from a string
          */
-        removeLastWordsFromStringUsingSplitter: my.curry(function (str, count, splitter) {
+        removeLastWordsFromStringUsingSplitter: whcgMy.my.curry(function (str, count, splitter) {
             return str.split(splitter).slice(0, -count).join(splitter);
         }),
 
@@ -628,7 +630,7 @@ var h = {};
         /**
          * Converts a string into number
          */
-        convertStringToNumber: my.curry((str) => {
+        convertStringToNumber: whcgMy.my.curry((str) => {
             return Number(str);
         })
     };
@@ -640,14 +642,14 @@ var h = {};
 
         
         //DONE
-        flatten: my.curry(function (arr) {
+        flatten: whcgMy.my.curry(function (arr) {
             return arr.reduce(function (flat, toFlatten) {
                 return flat.concat(Array.isArray(toFlatten) ? h.arr.flatten(toFlatten) : toFlatten);
             }, []);
         }),
 
         //DONE
-        seqArrayFromLength: my.curry(function (length) {
+        seqArrayFromLength: whcgMy.my.curry(function (length) {
             let seqArray = new Array(length);
 
             for (let i = 1; i <= length; i++) {
@@ -657,7 +659,7 @@ var h = {};
         }),
 
         //DONE
-        seqArrayFromTo: my.curry(function (from, to) {
+        seqArrayFromTo: whcgMy.my.curry(function (from, to) {
             let seqArray = [];
 
             for (let i = from; i <= to; i++) {
@@ -668,7 +670,7 @@ var h = {};
 
 
 
-        mapm: my.curry(function (reducer, arrs) {
+        mapm: whcgMy.my.curry(function (reducer, arrs) {
             let count = undefined;
             arrs.forEach(function (arr) {
                 if (count === undefined || arr.length < count)
@@ -689,7 +691,7 @@ var h = {};
         }),
 
         //DONE
-        sortArray: my.curry(function (arrayToSort, sortBy, direction) {
+        sortArray: whcgMy.my.curry(function (arrayToSort, sortBy, direction) {
 
             let sortedArray = arrayToSort.sort(function (a, b) {
                 let dirValue = 1;
@@ -717,19 +719,19 @@ var h = {};
     this.dom = {
 
         //DONE
-        appendInnerHTMLIO: my.curry(function (inner, outer) {
+        appendInnerHTMLIO: whcgMy.my.curry(function (inner, outer) {
             outer.innerHTML = inner;
             return outer;
         }),
 
         //DONE
-        appendInnerHTMLOI: my.curry(function (el, inner) {
+        appendInnerHTMLOI: whcgMy.my.curry(function (el, inner) {
             el.innerHTML = inner;
             return el;
         }),
 
         //DONE
-        wrapStringInTag: my.curry(function (tag, str) {
+        wrapStringInTag: whcgMy.my.curry(function (tag, str) {
             return '<' + tag + '>' + str + '</' + tag + '>';
         }),
 
@@ -739,7 +741,7 @@ var h = {};
          * @param child the inner element 
          * @param parent the outer element
          */
-        appendChildNodeIO: my.curry(function (child, parent) {
+        appendChildNodeIO: whcgMy.my.curry(function (child, parent) {
             parent.appendChild(child);
             return parent;
         }),
@@ -750,24 +752,24 @@ var h = {};
          * @param child the inner element 
          * @param parent the outer element
          */
-        appendChildNodeFirstIO: my.curry(function (child, parent) {
+        appendChildNodeFirstIO: whcgMy.my.curry(function (child, parent) {
             parent.insertBefore(child, parent.childNodes[0]);
             return parent;
         }),
 
-        appendChildNodeAtPositionIO: my.curry(function (position, child, parent) {
+        appendChildNodeAtPositionIO: whcgMy.my.curry(function (position, child, parent) {
             parent.insertBefore(child, parent.childNodes[position]);
             return parent;
         }),
 
         //DONE
-        appendChildNodeOI: my.curry(function (el, child) {
+        appendChildNodeOI: whcgMy.my.curry(function (el, child) {
             el.appendChild(child);
             return el;
         }),
 
         //DONE
-        appendChildNodesOnId: my.curry(function (builtElements, id) {
+        appendChildNodesOnId: whcgMy.my.curry(function (builtElements, id) {
             let myId = h.dom.getElement('id', id);
             builtElements.forEach((builtElement) => {
                 h.dom.appendChildNodeIO(builtElement, myId);
@@ -777,7 +779,7 @@ var h = {};
         }),
 
         //DONE
-        appendChildNodesIO: my.curry(function (builtElements, parentElement) {
+        appendChildNodesIO: whcgMy.my.curry(function (builtElements, parentElement) {
             builtElements.forEach((builtElement) => {
                 h.dom.appendChildNodeIO(builtElement, parentElement);
             });
@@ -786,7 +788,7 @@ var h = {};
         }),
 
         //DONE
-        appendChildNodesOI: my.curry(function (parentElement, builtElements) {
+        appendChildNodesOI: whcgMy.my.curry(function (parentElement, builtElements) {
             builtElements.forEach((builtElement) => {
                 h.dom.appendChildNodeOI(parentElement, builtElement);
             });
@@ -795,7 +797,7 @@ var h = {};
         }),
 
         //DONE
-        removeChildrenUntil: my.curry(function (el, numb) {
+        removeChildrenUntil: whcgMy.my.curry(function (el, numb) {
             while (el.children.length > numb) {
                 el.removeChild(el.lastChild);
             }
@@ -804,19 +806,19 @@ var h = {};
         }),
 
         //NOT DONE
-        appendSiblingNodeCS: my.curry(function (el, sibling) {
+        appendSiblingNodeCS: whcgMy.my.curry(function (el, sibling) {
             el.insertAdjacentElement('afterend', sibling);
             return el;
         }),
 
         //DONE
-        boxChecker: my.curry(function (el) {
+        boxChecker: whcgMy.my.curry(function (el) {
             el.checked = true;
             return el;
         }),
 
         //DONE
-        boxUnchecker: my.curry(function (el) {
+        boxUnchecker: whcgMy.my.curry(function (el) {
             el.checked = false;
             return el;
         }),
@@ -825,7 +827,7 @@ var h = {};
         /**
          * Creates element. @param tag kind of element
          */
-        createElement: my.curry(function (tag) {
+        createElement: whcgMy.my.curry(function (tag) {
             return document.createElement(tag);
         }),
 
@@ -833,7 +835,7 @@ var h = {};
         /**
          * Gets element. @param kind ether "id" or "class" @param name the name of the kind
          */
-        getElement: my.curry(function (kind, name) {
+        getElement: whcgMy.my.curry(function (kind, name) {
             switch (kind) {
                 case 'id':
                     return document.getElementById(name);
@@ -845,12 +847,12 @@ var h = {};
         }),
 
         //makes a node list with the specified attribute from from DOM. Slices the node list into an array
-        getAllElementsByAttribute: my.curry(function (elementAtrribute) {
+        getAllElementsByAttribute: whcgMy.my.curry(function (elementAtrribute) {
             return [].slice.call(document.querySelectorAll(elementAtrribute));
         }),
 
         //DONE
-        getAttribute: my.curry(function (attribute, el) {
+        getAttribute: whcgMy.my.curry(function (attribute, el) {
             return el.getAttribute(attribute);
         }),
 
@@ -861,13 +863,13 @@ var h = {};
          * @param {*} value 
          * @param  el the element
          */
-        setAttribute: my.curry(function (key, value, el) {
+        setAttribute: whcgMy.my.curry(function (key, value, el) {
             el.setAttribute(key, value);
             return el;
         }),
 
         //DONE
-        setStyle: my.curry(function (key, value, el) {
+        setStyle: whcgMy.my.curry(function (key, value, el) {
             el.style[key] = value;
             return el;
         }),
@@ -876,7 +878,7 @@ var h = {};
         /**
          * Creates a new element
          */
-        elementBuilder: my.curry(function (testingObject, db) {
+        elementBuilder: whcgMy.my.curry(function (testingObject, db) {
             //check if element exists
             if (h.boolean.isDefined(testingObject.kind)) {
 
@@ -920,7 +922,7 @@ var h = {};
         /**
          * Constructs an empty element info object
          */
-        ElementInfoConstructor: my.curry(function () {
+        ElementInfoConstructor: whcgMy.my.curry(function () {
             this.kind = '';
             this.attribute = [];
             this.style = [];
@@ -973,7 +975,7 @@ var h = {};
 
 
 
-        deleteFirstDocWithFilter: my.curry(function (kind, parentIdValue, db) { //CHANGE FUNCTION NAME!
+        deleteFirstDocWithFilter: whcgMy.my.curry(function (kind, parentIdValue, db) { //CHANGE FUNCTION NAME!
             let lastWordOfKind = h.str.getLastWordFromStringUsingSpliter(kind, '-');
             let kindName = h.str.getFirstWordFromStringUsingSpliter(kind, '-');
             let idOfDocNext;
@@ -1116,7 +1118,7 @@ var h = {};
                 });
         }),
 
-        deleteFirstDocFromEvent: my.curry(function (event, db) {
+        deleteFirstDocFromEvent: whcgMy.my.curry(function (event, db) {
             let kind = event.target.attributes.kind.value;
             let parentIdValue = event.target.attributes.parentId.value;
 
@@ -1124,7 +1126,7 @@ var h = {};
         }),
 
 
-        addOneDocFirstFromEvent: my.curry(function (event, db) {
+        addOneDocFirstFromEvent: whcgMy.my.curry(function (event, db) {
             let kind = event.target.attributes.kind.value;
             let parentIdValue = event.target.attributes.parentId.value;
 
@@ -1144,7 +1146,7 @@ var h = {};
                 });
         }),
 
-        addOneDocLastFromEvent: my.curry(function (event, db) {
+        addOneDocLastFromEvent: whcgMy.my.curry(function (event, db) {
             let kind = event.target.attributes.kind.value;
             let parentIdValue = event.target.attributes.parentId.value;
 
@@ -1170,7 +1172,7 @@ var h = {};
          * @param parentIdValue
          * @param db
          */
-        addOneDocFirstWithFilter: my.curry(function (kind, parentIdValue, db) {
+        addOneDocFirstWithFilter: whcgMy.my.curry(function (kind, parentIdValue, db) {
 
             let level = h.str.getLastWordFromStringUsingSpliter(kind, '-');
             let kindExceptLevelWithSpaceSeparators = h.str.removeLastWordFromStringUsingSplitter(kind, '-');
@@ -1265,7 +1267,7 @@ var h = {};
          * @param event
          * @param db
          */
-        addOneDocLastWithFilter: my.curry(function (kind, parentIdValue, db) {
+        addOneDocLastWithFilter: whcgMy.my.curry(function (kind, parentIdValue, db) {
 
             let lastWordOfKind = h.str.getLastWordFromStringUsingSpliter(kind, '-');
             let allButLastWordOfKind = h.str.removeLastWordFromStringUsingSplitter(kind, '-');
@@ -1355,7 +1357,7 @@ var h = {};
 
 
 
-        deleteAllDocsWithFilter: my.curry(function (event, db) {
+        deleteAllDocsWithFilter: whcgMy.my.curry(function (event, db) {
             let elementIdKind = event.target.attributes.kind.value;
             h.pouch.deleteAllRowsWithFilter(db, elementIdKind)
                 .then(() => {
@@ -1366,7 +1368,7 @@ var h = {};
                 });
         }),
 
-        addSelectedNumberOfDocsWithFilter: my.curry(function (event, db) {
+        addSelectedNumberOfDocsWithFilter: whcgMy.my.curry(function (event, db) {
             let selectedValue;
             let elementIdKind;
 
@@ -1386,11 +1388,11 @@ var h = {};
                 });
         }),
 
-        detectClickFunction: my.curry(function (event, db) {
+        detectClickFunction: whcgMy.my.curry(function (event, db) {
             return console.log(event);
         }),
 
-        detectKeybordFunction: my.curry(function (event, db) {
+        detectKeybordFunction: whcgMy.my.curry(function (event, db) {
             let keyPressed = event.whitch || event.keyCode || event.charCode;
             if (keyPressed === 13) {
                 event.preventDefault();
@@ -1422,7 +1424,7 @@ var h = {};
             }
         }),
 
-        detectBlurFunction: my.curry(function (event, db) {
+        detectBlurFunction: whcgMy.my.curry(function (event, db) {
             event.preventDefault();
             let element = event.target;
             let elementValue = element.value;
@@ -1444,7 +1446,7 @@ var h = {};
     this.pouch = {
 
         //DONE
-        fetchAll: my.curry(function (db) {
+        fetchAll: whcgMy.my.curry(function (db) {
             return db.allDocs({
                 include_docs: true,
                 conflicts: true
@@ -1452,7 +1454,7 @@ var h = {};
         }),
 
         //DONE
-        deleteDoc: my.curry(function (doc, db) {
+        deleteDoc: whcgMy.my.curry(function (doc, db) {
             return new Promise(function (resolve, reject) {
                 doc._deleted = true;
                 doc.written = new Date().toISOString();
@@ -1461,13 +1463,13 @@ var h = {};
         }),
 
         //DONE
-        deleteDocById: my.curry(function (docId, db) {
+        deleteDocById: whcgMy.my.curry(function (docId, db) {
             return h.pouch.getDoc(docId, db)
                 .then((doc) => h.pouch.deleteDoc(doc, db));
         }),
 
         //DONE
-        getDoc: my.curry(function (docId, db) {
+        getDoc: whcgMy.my.curry(function (docId, db) {
             return db.get(docId, {
                 conflicts: true,
                 include_docs: true
@@ -1475,29 +1477,29 @@ var h = {};
         }),
 
         //DONE
-        postDoc: my.curry(function (doc, db) {
+        postDoc: whcgMy.my.curry(function (doc, db) {
             return db.put(doc);
         }),
 
         //DONE
-        putDoc: my.curry(function (doc, db) {
+        putDoc: whcgMy.my.curry(function (doc, db) {
             return db.put(doc);
         }),
 
         //DONE
-        postDocs: my.curry(function (docs, db) {
+        postDocs: whcgMy.my.curry(function (docs, db) {
             return db.bulkDocs(docs);
         }),
 
         //DONE
-        deleteRows: my.curry(function (rows, db) {
+        deleteRows: whcgMy.my.curry(function (rows, db) {
             return rows.forEach((row) => {
                 h.pouch.deleteDoc(row.doc, db);
             });
         }),
 
         //DONE
-        deleteAllRowsWithFilter: my.curry(function (db, filter) {
+        deleteAllRowsWithFilter: whcgMy.my.curry(function (db, filter) {
             return h.pouch.getAllRowsWithFilter(db, filter)
                 .then((filteredRows) => {
                     return h.pouch.deleteRows(filteredRows, db);
@@ -1510,7 +1512,7 @@ var h = {};
          * @param db the database
          * @param kind section to filter. Rent etc.
          */
-        deleteLastRowWithFilter: my.curry(function (db, kind) {
+        deleteLastRowWithFilter: whcgMy.my.curry(function (db, kind) {
             return h.pouch.getAllRowsWithFilter(db, kind)
                 .then((filteredRows) => {
                     let sortedFilteredRows = h.pouch.sortRows(filteredRows, 'id', 'desc');
@@ -1525,7 +1527,7 @@ var h = {};
         }),
 
         //DONE
-        getAllRows: my.curry(function (db) {
+        getAllRows: whcgMy.my.curry(function (db) {
             return h.pouch.fetchAll(db)
                 .then((docs) => {
                     return docs.rows;
@@ -1533,7 +1535,7 @@ var h = {};
         }),
 
         //DONE
-        getAllRowsWithFilter: my.curry(function (db, filter) {
+        getAllRowsWithFilter: whcgMy.my.curry(function (db, filter) {
 
             //IF SECTION
             if (h.str.getLastWordFromStringUsingSpliter(filter, '-') === 'section') {
@@ -1562,7 +1564,7 @@ var h = {};
         }),
 
         //DONE
-        getAllRowsWithLevel: my.curry(function (db, level) {
+        getAllRowsWithLevel: whcgMy.my.curry(function (db, level) {
 
             //IF SECTION
             if (level === 'section') {
@@ -1608,7 +1610,7 @@ var h = {};
 
         }),
 
-        getAllRowsWithParentId: my.curry(function (db, filter) {
+        getAllRowsWithParentId: whcgMy.my.curry(function (db, filter) {
             return h.pouch.getAllRows(db)
                 .then((rows) => {
                     let filteredRows = rows.filter((row) => {
@@ -1618,7 +1620,7 @@ var h = {};
                 });
         }),
 
-        getAllRowsOfLevel: my.curry(function (db, level) {
+        getAllRowsOfLevel: whcgMy.my.curry(function (db, level) {
             return h.pouch.getAllRows(db)
                 .then((rows) => {
                     let filteredRows = rows.filter((row) => {
@@ -1629,7 +1631,7 @@ var h = {};
         }),
 
         //DONE
-        getLatestRowWithFilter: my.curry(function (db, filter) {
+        getLatestRowWithFilter: whcgMy.my.curry(function (db, filter) {
             return h.pouch.getAllRowsWithFilter(db, filter)
                 .then((filteredRows) => {
                     let sortedFilteredRows = h.pouch.sortRows(filteredRows, 'id', 'desc');
@@ -1639,7 +1641,7 @@ var h = {};
                 });
         }),
 
-        getLatestRowOfLevel: my.curry(function (db, level) {
+        getLatestRowOfLevel: whcgMy.my.curry(function (db, level) {
             return h.pouch.getAllRowsOfLevel(db, level)
                 .then((filteredRows) => {
                     let sortedFilteredRows = h.pouch.sortRows(filteredRows, 'id', 'desc');
@@ -1651,7 +1653,7 @@ var h = {};
 
 
 
-        getRowPointingAtFirst: my.curry(function (rows, previousKey) {
+        getRowPointingAtFirst: whcgMy.my.curry(function (rows, previousKey) {
             let firstRow = [];
             firstRow = rows.filter((row) => {
                 return row.doc[previousKey] === 'first';
@@ -1660,7 +1662,7 @@ var h = {};
             return (firstRow);
         }),
 
-        getRowsPointingAtFirst: my.curry(function (rows, previousKey) {
+        getRowsPointingAtFirst: whcgMy.my.curry(function (rows, previousKey) {
             let firstRow = [];
             firstRow = rows.filter((row) => {
                 return row.doc[previousKey] === 'first';
@@ -1669,7 +1671,7 @@ var h = {};
             return (firstRow);
         }),
 
-        getRowPointingAtLast: my.curry(function (rows, nextKey) {
+        getRowPointingAtLast: whcgMy.my.curry(function (rows, nextKey) {
             let lastRow = [];
             lastRow = rows.filter((row) => {
                 return row.doc[nextKey] === 'last';
@@ -1681,17 +1683,17 @@ var h = {};
 
 
         //DONE
-        sortRows: my.curry(function (rows, sortParameter, direction) {
+        sortRows: whcgMy.my.curry(function (rows, sortParameter, direction) {
             let sortedRows = h.arr.sortArray(rows, sortParameter, direction);
             return sortedRows;
         }),
 
 
-        deleteRevision: my.curry(function (rev, docId, db) {
+        deleteRevision: whcgMy.my.curry(function (rev, docId, db) {
             return db.remove(docId, rev);
         }),
 
-        getConflictRows: my.curry(function (docs) {
+        getConflictRows: whcgMy.my.curry(function (docs) {
             return docs['rows'].filter(function (row) {
                 return row.doc._conflicts;
             });
@@ -1699,7 +1701,7 @@ var h = {};
 
 
         //gets the previously revision id
-        getPreviousRev: my.curry(function (latestDocRev) {
+        getPreviousRev: whcgMy.my.curry(function (latestDocRev) {
             let previousRev = (latestDocRev._revisions.ids.length - 1) + '-' + latestDocRev._revisions.ids[1];
             let id = latestDocRev._id;
             return db.get(id, {
@@ -1709,7 +1711,7 @@ var h = {};
         }),
 
 
-        getNewElementIdNumber: my.curry(function (db, elementIdKind) {
+        getNewElementIdNumber: whcgMy.my.curry(function (db, elementIdKind) {
             return h.pouch.getAllRowsWithFilter(db, elementIdKind)
                 .then((filteredRows) => {
                     let newElementIdNumber;
@@ -1737,7 +1739,7 @@ var h = {};
          * @param db
          * @param parameters an array of parameters
          */
-        createDoc: my.curry(function (db, parameters) {
+        createDoc: whcgMy.my.curry(function (db, parameters) {
             return new Promise(function (resolve, reject) {
                 let serializedNonsensFunction = h.functions.serialize(nonsensFunction);
 
@@ -1756,7 +1758,7 @@ var h = {};
             });
         }),
 
-        createDocs: my.curry(function (db, arr, elementIdKind) {
+        createDocs: whcgMy.my.curry(function (db, arr, elementIdKind) {
             return new Promise((resolve, reject) => {
                 let docs = [];
                 let index = 0;
@@ -1797,7 +1799,7 @@ var h = {};
         }),
 
         //DONE
-        editDoc: my.curry(function (doc, parameters) {
+        editDoc: whcgMy.my.curry(function (doc, parameters) {
             parameters.forEach((parameter) => {
                 doc[parameter.key] = parameter.value;
             });
@@ -1808,7 +1810,7 @@ var h = {};
         }),
 
         //DONE
-        editDocById: my.curry(function (docId, db, parameters) {
+        editDocById: whcgMy.my.curry(function (docId, db, parameters) {
             return h.pouch.getDoc(docId, db)
                 .then((doc) => {
                     return h.pouch.editDoc(doc, parameters);
@@ -1816,7 +1818,7 @@ var h = {};
         }),
 
         //DONE
-        editDocAndPut: my.curry(function (doc, db, parameters) {
+        editDocAndPut: whcgMy.my.curry(function (doc, db, parameters) {
             let editedDoc = h.pouch.editDoc(doc, parameters);
             return h.pouch.putDoc(editedDoc, db);
         }),
@@ -1828,7 +1830,7 @@ var h = {};
          * @param db
          * @param parameters the attributes array
          */
-        editDocByIdAndPut: my.curry(function (docId, db, parameters) {
+        editDocByIdAndPut: whcgMy.my.curry(function (docId, db, parameters) {
             return h.pouch.editDocById(docId, db, parameters)
                 .then((editedDoc) => {
                     return h.pouch.putDoc(editedDoc, db);
@@ -1840,7 +1842,7 @@ var h = {};
          * Get first row were previousH is 'first' and check if empty
          * @param filteredRows array of filtered rows, filtered from kind
          */
-        getFirstRowOfSectionOrRow: my.curry(function (filteredRows) {
+        getFirstRowOfSectionOrRow: whcgMy.my.curry(function (filteredRows) {
             return new Promise(function (resolve, reject) {
                 row = [];
                 row = filteredRows.filter((filteredRow) => {
@@ -1858,7 +1860,7 @@ var h = {};
          * Get first row were previousH is 'first' and check if empty
          * @param filteredRows array of filtered rows, filtered from kind
          */
-        getFirstRowOfElement: my.curry(function (filteredRows, parentId) {
+        getFirstRowOfElement: whcgMy.my.curry(function (filteredRows, parentId) {
             return new Promise(function (resolve, reject) {
                 let row = [];
                 row = filteredRows.filter((filteredRow) => {
@@ -1877,7 +1879,7 @@ var h = {};
          * Get first row were previousH is 'first' and check if empty
          * @param filteredRows array of filtered rows, filtered from kind
          */
-        getLastRowOfKind: my.curry(function (filteredRows) {
+        getLastRowOfKind: whcgMy.my.curry(function (filteredRows) {
             return new Promise(function (resolve, reject) {
                 let row = [];
                 row = filteredRows.filter((filteredRow) => {
@@ -1892,7 +1894,7 @@ var h = {};
         }),
 
 
-        setPointersForDocumentAddedFirst: my.curry(function (firstRow) {
+        setPointersForDocumentAddedFirst: whcgMy.my.curry(function (firstRow) {
             let nextValue;
             let previousValue;
             if (h.boolean.isEmpty(firstRow)) {
@@ -1910,7 +1912,7 @@ var h = {};
         }),
 
 
-        setPointersForDocumentAddedLast: my.curry(function (lastRow) {
+        setPointersForDocumentAddedLast: whcgMy.my.curry(function (lastRow) {
             let nextValue;
             let previousValue;
             if (h.boolean.isEmpty(lastRow)) {
@@ -1934,7 +1936,7 @@ var h = {};
     this.functions = {
 
         //DONE
-        serialize: my.curry(function (newFunction) {
+        serialize: whcgMy.my.curry(function (newFunction) {
             return JSON.stringify(newFunction, function (key, value) {
                 if (typeof value === 'function') {
                     return value.toString();
@@ -1944,7 +1946,7 @@ var h = {};
         }),
 
         //DONE
-        deSerialize: my.curry(function (newFunctionString) {
+        deSerialize: whcgMy.my.curry(function (newFunctionString) {
             return JSON.parse(newFunctionString, function (key, value) {
 
                 if (value

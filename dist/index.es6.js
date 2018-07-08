@@ -1,3 +1,5 @@
+import { my } from '@whcg/whcg-my';
+
 var h = {};
 
 
